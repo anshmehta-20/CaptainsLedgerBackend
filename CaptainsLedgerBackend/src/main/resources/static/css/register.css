@@ -1,0 +1,79 @@
+/*
+ * register.css
+ * This file contains styles specific to the register.html page.
+ * General theme, colors, and global component styles are in style.css.
+ */
+
+/* Style for the main container on the register page, if different from login-container */
+/* Your register.html currently uses a 'container' class inside 'content-wrapper'.
+   The 'form-section' class is also a good target for the actual form section. */
+.container {
+    margin: auto; /* Center it */
+    max-width: 500px; /* Adjust max-width if you want the register form to be wider */
+    padding: 20px;
+    /* Background, border, shadow, text color, etc. will come from style.css
+       via body.light-mode/dark-mode and .form-section if applied there,
+       or you can explicitly set them here if this .container is unique. */
+    background-color: var(--light-card-background); /* Using theme variable from style.css */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--light-border);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    /* flex-grow: 1; is often useful if this is inside a flex column layout */
+    flex-grow: 1;
+    display: flex; /* For internal layout of container children */
+    flex-direction: column;
+    justify-content: center; /* Vertically center content if there's extra space */
+    align-items: center; /* Horizontally center content */
+    text-align: center; /* Center text within the container */
+}
+
+/* Dark mode specific for this container */
+body.dark-mode .container {
+    background-color: var(--dark-card-background);
+    border: 1px solid var(--dark-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Specific styling for the register form */
+#registerForm {
+    /* If you need specific spacing or width adjustments for the register form, define them here.
+       Otherwise, it will inherit from the general input-group and button[type="submit"] styles in style.css. */
+    width: 100%; /* Ensures form takes full width of its container */
+    max-width: 400px; /* Example: Limit form width within the container */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spacing between input groups */
+}
+
+/* Specific styling for the "Already have an account?" link */
+.container p { /* Targeting general paragraphs within the container */
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.container p a { /* Targeting links within those paragraphs */
+    color: var(--avengers-red); /* Uses theme variable from style.css */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+body.dark-mode .container p a {
+    color: var(--avengers-dark-red); /* Uses dark mode theme variable */
+}
+
+.container p a:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries specific to register.css components */
+@media (max-width: 600px) {
+    .container {
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 30px 20px;
+    }
+}

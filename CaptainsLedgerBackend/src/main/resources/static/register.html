@@ -4,50 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Captain's Ledger</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">     <link rel="stylesheet" href="css/register.css">  <link rel="icon" href="/images/Avengers.jpg" type="image/jpg">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Captain's Ledger</h1>
-            <p>Register as a new user</p>
-        </header>
-        <main>
-            <section id="register-section" class="form-section">
-                <h2>Register</h2>
-                <form id="registerForm">
-                    <div class="input-group">
-                        <label for="regUsername">Username:</label>
-                        <input type="text" id="regUsername" name="username" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="regEmail">Email:</label>
-                        <input type="email" id="regEmail" name="email" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="regPassword">Password:</label>
-                        <input type="password" id="regPassword" name="password" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="regConfirmPassword">Confirm Password:</label>
-                        <input type="password" id="regConfirmPassword" name="confirmPassword" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="regRole">Role:</label>
-                        <select id="regRole" name="role" required>
-                            <option value="AVENGER">AVENGER</option>
-                            <option value="ADMIN">ADMIN</option>
+<body class="light-mode">
+
+    <div class="video-background">
+        <video autoplay loop muted playsinline poster="/images/marvel_intro_poster.jpg">
+            <source src="/videos/marvel_intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+            </label>
+            <em>Dark Mode</em>
+        </div>
+
+        <div class="container">
+            <header>
+                <h1>Captain's Ledger</h1>
+                <p>Register as a new user</p>
+            </header>
+            <main>
+                <section id="register-section" class="form-section">
+                    <h2>Register</h2>
+                    <form id="registerForm">
+                        <div class="input-group">
+                            <label for="regUsername">Username:</label>
+                            <input type="text" id="regUsername" name="username" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="regEmail">Email:</label>
+                            <input type="email" id="regEmail" name="email" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="regPassword">Password:</label>
+                            <input type="password" id="regPassword" name="password" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="regConfirmPassword">Confirm Password:</label>
+                            <input type="password" id="regConfirmPassword" name="confirmPassword" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="regRole">Role:</label>
+                            <select id="regRole" name="role" required>
+                                <option value="AVENGER">AVENGER</option>
+                                <option value="ADMIN">ADMIN</option>
                             </select>
-                    </div>
-                    <button type="submit" class="btn">Register</button>
-                </form>
-                <p>Already have an account? <a href="index.html">Login here</a>.</p>
-                <div id="registerMessage" class="message"></div>
-            </section>
-        </main>
-        <footer>
-            <p>&copy; 2025 Captain's Ledger</p>
-        </footer>
+                        </div>
+                        <button type="submit" class="btn">Register</button>
+                    </form>
+                    <p>Already have an account? <a href="index.html">Login here</a>.</p>
+                    <div id="registerMessage" class="message"></div>
+                </section>
+            </main>
+            <footer>
+                <p>&copy; 2025 Captain's Ledger</p>
+            </footer>
+        </div>
     </div>
     <script src="js/script.js"></script>
 </body>
