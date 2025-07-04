@@ -1,26 +1,25 @@
-/* Universal Styles and Colors */
+/*
+ * style.css
+ * This file contains universal theme colors, fonts,
+ * dark mode functionality, and global layout elements like the video background
+ * and content wrapper.
+ */
 
 /* Define the custom font - Ensure these paths match your font file locations */
 @font-face {
     font-family: 'NougatExtraBlack';
-    /* This is the name you'll use in your CSS */
     src: url('/fonts/nougat-extrablack-webfont.ttf') format('truetype');
-    /* Path assuming fonts are in static/fonts/ */
     font-weight: normal;
     font-style: normal;
     font-display: swap;
-    /* Recommended for better user experience during font loading */
 }
 
 @font-face {
     font-family: 'Avengers';
-    /* This is the name you'll use in your CSS */
     src: url('/fonts/Avengers.ttf') format('truetype');
-    /* Path assuming fonts are in static/fonts/ */
     font-weight: bold;
     font-style: normal;
     font-display: swap;
-    /* Recommended for better user experience during font loading */
 }
 
 /* Color Variables for Light and Dark Mode */
@@ -32,21 +31,15 @@
     --light-border: #ddd;
     --light-input-background: #f9f9f9;
     --light-button-background: #dc3545;
-    /* Red */
     --light-button-text: #ffffff;
 
     /* Dark Mode Colors */
     --dark-background: #000005;
-    /* Near black */
     --dark-text: #e0e0e0;
-    /* Light grey for text */
     --dark-card-background: #060606;
-    /* Dark grey for form background */
     --dark-border: #1d1c1c;
     --dark-input-background: #252525;
-    /* Darker grey for input fields */
     --dark-button-background: #ce0026;
-    /* Darker Red */
     --dark-button-text: #ffffff;
 
     /* Avengers Theme Specific Colors */
@@ -57,23 +50,27 @@
 }
 
 /* Base Body Styles */
-body {
-    font-family: 'Arial', sans-serif;
+/* Make sure html and body can take full height but allow content-wrapper to scroll */
+html, body {
     margin: 0;
-    display: flex;
-    /* Using flexbox for centering content-wrapper */
+    padding: 0;
+    height: 100%; /* Important for full page height */
+    width: 100%; /* Important for full page width */
+    overflow-x: hidden;
+    overflow-y: auto; /* Prevent horizontal scroll */
+    font-family: 'Arial', sans-serif; /* Default font */
+}
+
+body {
+    display: flex; /* Use flexbox for centering content-wrapper */
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
-    flex-direction: column;
-    /* To stack toggle and login container if content-wrapper not used for that */
-
-    /* Required for positioning background video */
     position: relative;
-    overflow: hidden;
-    /* Prevents scrollbars if video slightly overflows */
+    transition: background-color 0.3s, color 0.3s;
+    /* REMOVED: overflow: hidden; */ /* Removing this from body to allow content-wrapper to handle it */
+    min-height: 100vh; /* Ensure body takes at least full viewport height */
 }
+
 
 /* Light Mode Defaults */
 body.light-mode {
@@ -89,252 +86,62 @@ body.dark-mode {
 
 /* --- Background Video Styles --- */
 .video-background {
-    position: absolute;
+    position: fixed; /* Stays in place during scroll */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -2;
-    /* Puts it behind everything else */
-    background-color: #000;
-    /* Fallback background if video doesn't load */
+    z-index: -2; /* Puts it behind everything else */
+    background-color: #000; /* Fallback background if video doesn't load */
 }
 
 .video-background video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    /* Ensures video covers the entire area without distortion */
-    filter: brightness(0.7);
-    /* Slightly dims the video to help text readability */
+    object-fit: cover; /* Ensures video covers the entire area without distortion */
+    filter: brightness(0.7); /* Slightly dims the video to help text readability */
 }
 
 /* Overlay over the video for text readability */
 .video-overlay {
-    position: absolute;
+    position: fixed; /* Stays in place during scroll */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent dark overlay */
-    z-index: -1;
-    /* Sits between the video and the content */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+    z-index: -1; /* Sits between the video and the content */
 }
 
 /* --- Content Wrapper (for all main content) --- */
 .content-wrapper {
-    position: relative;
-    /* Allows z-index to work */
-    z-index: 1;
-    /* Puts all main content above the video and overlay */
-    display: flex;
-    /* Apply flexbox to organize contents (toggle and form box) */
-    flex-direction: column;
-    /* Stack them vertically */
-    justify-content: center;
-    /* Center vertically within content-wrapper */
-    align-items: center;
-    /* Center horizontally within content-wrapper */
-    min-height: 100vh;
-    /* Ensure it takes full viewport height */
+    position: relative; /* Allows z-index to work */
+    z-index: 1; /* Puts all main content above the video and overlay */
+    display: flex; /* Apply flexbox to organize contents (toggle and form box) */
+    flex-direction: column; /* Stack them vertically */
+    justify-content: flex-start; /* Aligns content to the start (top) */
+    align-items: center; /* Center horizontally within content-wrapper */
+    min-height: 100vh; /* **CRITICAL**: Ensures it's at least full viewport height */
     width: 100%;
-    /* Ensure it takes full width */
+    padding: 20px; /* Padding for the content inside */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+    overflow-y: auto; /* **CRITICAL**: This makes the content-wrapper itself scrollable if its content overflows */
+    scroll-behavior: smooth; /* Optional: smooth scrolling */
 }
-
-/* --- Login/Register Form Container Styles --- */
-/* Now targets both .login-container and .form-section for consistent styling */
-.login-container,
-.form-section {
-    /* ADDED .form-section to target register page's main form container */
-    background-color: var(--light-card-background);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-    border: 1px solid var(--light-border);
-    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-    /* Smooth transition for dark mode */
-    position: relative;
-    /* Ensure it respects z-index within content-wrapper */
-    z-index: 2;
-    /* Puts the form box above the overlay */
-    /* Removed margin-top/bottom here as theme-switch-wrapper is now fixed */
-}
-
-body.dark-mode .login-container,
-body.dark-mode .form-section {
-    /* ADDED .form-section for dark mode */
-    background-color: var(--dark-card-background);
-    border: 1px solid var(--dark-border);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    /* Slightly darker shadow for dark mode */
-}
-
-/* Logo Styles */
-.logo {
-    width: 80px;
-    /* Adjusted size */
-    height: auto;
-    /* Maintain aspect ratio */
-    margin-bottom: 15px;
-    /* Reduced margin */
-}
-
-/* Heading Styles */
-h2 {
-    font-family: 'Avengers', sans-serif;
-    /* Applied custom font here! */
-    color: var(--avengers-red);
-    margin-bottom: 30px;
-    font-size: 2.2em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: color 0.3s;
-}
-
-body.dark-mode h2 {
-    color: var(--avengers-dark-red);
-}
-
-/* Input Group Styles */
-.input-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-}
-
-/* ENHANCED: Input fields and Select dropdown styling */
-.input-group input[type="text"],
-.input-group input[type="password"],
-.input-group input[type="email"],
-/* ADDED: For Email field */
-.input-group select {
-    /* ADDED: For Role dropdown */
-    width: calc(100% - 20px);
-    /* Account for padding */
-    padding: 12px 10px;
-    border: 1px solid var(--light-border);
-    border-radius: 5px;
-    background-color: var(--light-input-background);
-    color: var(--light-text);
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-    /* Remove default browser styling for select for consistent look */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
-body.dark-mode .input-group input,
-body.dark-mode .input-group select {
-    /* ADDED: Dark mode for select */
-    border: 1px solid var(--dark-border);
-    background-color: var(--dark-input-background);
-    color: var(--dark-text);
-}
-
-/* Focus styles for all relevant input types and select */
-.input-group input:focus,
-.input-group select:focus {
-    /* ADDED: Focus for select */
-    outline: none;
-    border-color: var(--avengers-red);
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
-}
-
-body.dark-mode .input-group input:focus,
-body.dark-mode .input-group select:focus {
-    /* ADDED: Dark mode focus for select */
-    border-color: var(--avengers-dark-red);
-    box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.3);
-}
-
-/* Button Styles - Using the original button[type="submit"] selector */
-button[type="submit"] {
-    background-color: var(--light-button-background);
-    color: var(--light-button-text);
-    border: none;
-    padding: 12px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-    width: 100%;
-}
-
-body.dark-mode button[type="submit"] {
-    background-color: var(--dark-button-background);
-    color: var(--dark-button-text);
-}
-
-button[type="submit"]:hover {
-    background-color: #a72737;
-    /* Slightly darker red on hover for light mode */
-}
-
-body.dark-mode button[type="submit"]:hover {
-    background-color: #8c0019;
-    /* Slightly darker red on hover for dark mode */
-}
-
-/* ADDED: Styles for messages from script.js (loginMessage, registerMessage) */
-.message {
-    margin-top: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
-    font-size: 0.9em;
-}
-
-.message.success {
-    color: green;
-    background-color: #e6ffe6;
-    /* Light green background */
-    border: 1px solid green;
-}
-
-.message.error {
-    color: red;
-    background-color: #ffe6e6;
-    /* Light red background */
-    border: 1px solid red;
-}
-
 
 /* --- Theme Switch Toggle Styles --- */
 .theme-switch-wrapper {
     display: flex;
     align-items: center;
-    /* REMOVED: margin-bottom and margin-top as it's now fixed */
-    /* New properties for fixed positioning */
-    position: fixed;
-    /* Make it stick to the viewport */
+    position: fixed; /* Keep it fixed at the top */
     top: 15px;
-    /* Adjust as needed: distance from the top */
     right: 15px;
-    /* Adjust as needed: distance from the right */
-    z-index: 1000;
-    /* Ensure it's on top of all other content */
+    z-index: 1000; /* Ensure it's on top of all other content */
     background-color: rgba(0, 0, 0, 0.5);
-    /* Optional: A subtle background for visibility */
     padding: 8px 10px;
-    /* Optional: Padding around the toggle */
     border-radius: 10px;
-    /* Optional: Rounded corners for the wrapper */
     backdrop-filter: blur(5px);
-    /* Optional: Frosted glass effect */
     border: 1px solid rgba(255, 255, 255, 0.2);
-    /* Optional: Subtle border */
 }
 
 .theme-switch {
@@ -346,7 +153,6 @@ body.dark-mode button[type="submit"]:hover {
 
 .theme-switch input {
     display: none;
-    /* Hide the default checkbox */
 }
 
 .slider {
@@ -373,7 +179,6 @@ body.dark-mode button[type="submit"]:hover {
 
 input:checked+.slider {
     background-color: var(--avengers-red);
-    /* Color when dark mode is active */
 }
 
 input:checked+.slider:before {
@@ -390,177 +195,12 @@ input:checked+.slider:before {
 
 .theme-switch-wrapper em {
     margin-left: 10px;
-    font-style: 'NougatExtraBlack';
+    font-style: normal;
     font-weight: 500;
-    /* Override default italic for <em> */
-    color: var(--dark-text);
-    /* Default text color */
+    color: var(--dark-text); /* Default color for em tag */
     transition: color 0.3s;
-    /* Smooth transition */
 }
 
 body.dark-mode .theme-switch-wrapper em {
-    color: var(--avengers-dark-red);
-    /* Text color in dark mode */
-}
-
-/* --- Register Link Styles (or general links within form containers) --- */
-/* Now targets links within both .login-container and .form-section */
-.login-container .register-link,
-/* Original selector for index.html */
-.form-section p {
-    /* New selector for register.html and other generic paragraphs */
-    margin-top: 20px;
-    font-size: 0.9em;
-}
-
-.login-container .register-link a,
-/* Original selector for index.html */
-.form-section p a {
-    /* New selector for register.html and other generic paragraph links */
-    color: var(--avengers-red);
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-body.dark-mode .login-container .register-link a,
-body.dark-mode .form-section p a {
-    color: var(--avengers-dark-red);
-}
-
-.login-container .register-link a:hover,
-.form-section p a:hover {
-    text-decoration: underline;
-}
-
-/* Media Queries for Responsiveness (Optional, but good practice) */
-@media (max-width: 600px) {
-
-    .login-container,
-    .form-section {
-        margin-left: 10px;
-        margin-right: 10px;
-        padding: 30px 20px;
-    }
-
-    h2 {
-        font-size: 1.8em;
-    }
-
-    /* Adjust position for smaller screens if needed */
-    .theme-switch-wrapper {
-        top: 10px;
-        right: 10px;
-        padding: 5px 10px;
-    }
-}
-
-
-/* ---------------------- Dashboard Styling ----------------------*/
-/* --- Dashboard Container Styles (similar to login-container) --- */
-.dashboard-container {
-    background-color: var(--light-card-background);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
-    /* Slightly wider for dashboard */
-    border: 1px solid var(--light-border);
-    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-    position: relative;
-    z-index: 2;
-    margin-top: 20px;
-    /* Add margin-top here if the dashboard content starts too high due to the fixed toggle */
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    /* Include padding in width */
-}
-
-body.dark-mode .dashboard-container {
-    background-color: var(--dark-card-background);
-    border: 1px solid var(--dark-border);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Styles for the role-specific content divs */
-.role-content {
-    margin-top: 30px;
-    text-align: left;
-    /* Align list items to left */
-}
-
-.role-content h3 {
-    font-family: 'Avengers', sans-serif;
-    color: var(--avengers-red);
-    margin-bottom: 15px;
-    font-size: 1.8em;
-}
-
-body.dark-mode .role-content h3 {
-    color: var(--avengers-dark-red);
-}
-
-.role-content ul {
-    list-style: none;
-    /* Remove bullet points */
-    padding: 0;
-    margin: 0;
-}
-
-.role-content li {
-    margin-bottom: 10px;
-}
-
-.role-content a,
-.role-content button {
-    display: inline-block;
-    /* Or block for full width buttons */
-    background-color: var(--avengers-red);
-    color: var(--avengers-white);
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    border: none;
-    /* For buttons */
-    cursor: pointer;
-    /* For buttons */
-    font-size: 1em;
-}
-
-body.dark-mode .role-content a,
-body.dark-mode .role-content button {
-    background-color: var(--avengers-dark-red);
-}
-
-.role-content a:hover,
-.role-content button:hover {
-    background-color: #a72737;
-}
-
-body.dark-mode .role-content a:hover,
-body.dark-mode .role-content button:hover {
-    background-color: #8c0019;
-}
-
-.logout-btn {
-    margin-top: 40px;
-    background-color: #6c757d;
-    /* A neutral, slightly darker grey for logout */
-}
-
-body.dark-mode .logout-btn {
-    background-color: #495057;
-}
-
-.logout-btn:hover {
-    background-color: #5a6268;
-}
-
-body.dark-mode .logout-btn:hover {
-    background-color: #343a40;
+    color: var(--avengers-dark-red); /* Color in dark mode */
 }
