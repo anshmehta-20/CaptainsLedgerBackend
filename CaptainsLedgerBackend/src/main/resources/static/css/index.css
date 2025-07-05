@@ -4,6 +4,19 @@
  * Universal theme, colors, and global elements are inherited from style.css.
  */
 
+/* --- Core Layout for Vertical Alignment --- */
+.content-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    min-height: 100vh; /* Make sure it takes full viewport height */
+    padding: 20px; /* Add some padding for smaller screens if needed */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    position: relative; /* Needed for z-index of children if they have position: absolute */
+    z-index: 1; /* Ensure content is above video overlay */
+}
+
 /* --- Login Form Container Styles --- */
 .login-container {
     background-color: var(--light-card-background); /* Uses theme variable from style.css */
@@ -15,7 +28,7 @@
     max-width: 400px;
     border: 1px solid var(--light-border); /* Uses theme variable from style.css */
     transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-    position: relative;
+    /* position: relative; - Removed as content-wrapper now handles primary centering */
     z-index: 2;
     margin-top: 20px; /* Add margin to create space if content above exists */
     margin-bottom: 20px; /* Add margin to create space below */
