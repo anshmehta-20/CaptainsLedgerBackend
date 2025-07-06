@@ -1,0 +1,651 @@
+/* admin_dboard.css */
+
+/*
+ * This file contains styles specific to the Admin Dashboard.
+ * It builds upon the universal theme defined in style.css,
+ * overriding or adding styles for layout, components, and responsiveness.
+ */
+
+/* Adjust the content-wrapper to act as the main dashboard container */
+.content-wrapper {
+    /* Overrides style.css's flex-direction: column to allow a wider dashboard layout */
+    flex-direction: column; /* Keep column for overall content (header then layout container) */
+    width: 95%; /* Make it wider for dashboard content */
+    max-width: 1400px; /* Max width for larger screens */
+    margin: 20px auto; /* Center the content wrapper and add vertical margin */
+    border-radius: 15px; /* Rounded corners for the entire dashboard card */
+    overflow: hidden; /* Ensures content respects border-radius */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+    background-color: var(--dark-card-background); /* Background color for the entire dashboard container */
+    min-height: calc(100vh - 40px); /* Ensure it takes up most of the viewport height */
+}
+
+/* Light mode adjustments for the content-wrapper background and shadow */
+body.light-mode .content-wrapper {
+    background-color: var(--light-card-background);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard Header Styles */
+.dashboard-header {
+    width: 100%; /* Spans full width of content-wrapper */
+    padding: 20px 30px;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black for a sleek look */
+    color: var(--avengers-white); /* White text for contrast */
+    text-align: center;
+    border-bottom: 1px solid var(--dark-border); /* Separator from content below */
+    box-sizing: border-box; /* Include padding in width calculation */
+    font-family: 'Avengers', sans-serif; /* Apply the custom Avengers font */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for dramatic effect */
+    /* position: sticky; /* Make header sticky when scrolling, if content overflows */
+    /* top: 0; */
+    z-index: 10; /* Ensure header is on top */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Light mode adjustments for the dashboard header */
+body.light-mode .dashboard-header {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--light-text);
+    border-bottom: 1px solid var(--light-border);
+    text-shadow: none; /* Remove text shadow in light mode */
+}
+
+.dashboard-title {
+    font-size: 2.5em; /* Large title for impact */
+    margin-bottom: 5px;
+    letter-spacing: 2px; /* Spaced out letters for style */
+}
+
+.welcome-message {
+    font-size: 1.1em;
+    opacity: 0.8; /* Slightly faded text */
+    font-family: 'NougatExtraBlack', sans-serif; /* Apply custom Nougat font */
+}
+
+/* Container for Sidebar and Main Content */
+.dashboard-layout-container {
+    display: flex; /* This makes the sidebar and main content sit side-by-side */
+    flex-grow: 1; /* Allows this container to take up remaining vertical space */
+    width: 100%; /* Spans full width of content-wrapper */
+    overflow: hidden; /* Ensures content within doesn't overflow this container */
+}
+
+/* Sidebar Navigation Styles */
+.sidebar {
+    width: 250px; /* Fixed width for the sidebar */
+    background-color: var(--dark-card-background); /* Dark background for sidebar */
+    padding: 20px 0;
+    border-right: 1px solid var(--dark-border); /* Separator from main content */
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    height: auto; /* Allow height to adjust to content */
+    min-height: 100%; /* Ensure it takes full height of its parent (dashboard-layout-container) */
+    overflow-y: auto; /* Make sidebar scrollable if many items */
+}
+
+/* Light mode adjustments for the sidebar */
+body.light-mode .sidebar {
+    background-color: var(--light-card-background);
+    border-right: 1px solid var(--light-border);
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    padding: 15px 20px;
+    cursor: pointer; /* Indicate clickable item */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transitions on hover/active */
+    font-size: 1.1em;
+    display: flex;
+    align-items: center; /* Vertically align icon and text */
+    gap: 10px; /* Space between icon and text */
+}
+
+.sidebar li:hover {
+    background-color: rgba(var(--avengers-red), 0.2); /* Subtle red background on hover */
+    color: var(--avengers-red); /* Red text on hover */
+}
+
+.sidebar li.active {
+    background-color: var(--avengers-red); /* Solid red background for active item */
+    color: var(--avengers-white); /* White text for active item */
+    font-weight: bold;
+    border-left: 5px solid var(--avengers-dark-red); /* Stronger red line on the left */
+}
+
+.sidebar li.active i {
+    color: var(--avengers-white); /* White icon for active item */
+}
+
+.sidebar i {
+    color: var(--dark-text); /* Default icon color */
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+
+/* Light mode adjustments for sidebar icons */
+body.light-mode .sidebar i {
+    color: var(--light-text);
+}
+
+/* Main Content Area Styles */
+.dashboard-main-content {
+    flex-grow: 1; /* Allows main content to take up all remaining horizontal space */
+    padding: 30px;
+    background-color: var(--dark-background); /* Dark background for the main content area */
+    min-height: 100%; /* Ensure it takes full height of its parent */
+    overflow-y: auto; /* Make main content scrollable if it overflows */
+    box-sizing: border-box; /* Include padding in width/height */
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+    gap: 20px; /* Gap between different sections */
+}
+
+/* Light mode adjustments for main content background */
+body.light-mode .dashboard-main-content {
+    background-color: var(--light-background);
+}
+
+.dashboard-section {
+    background-color: var(--dark-card-background); /* Background for individual sections */
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for section cards */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Light mode adjustments for section cards */
+body.light-mode .dashboard-section {
+    background-color: var(--light-card-background);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-section.hidden {
+    display: none; /* Utility class to hide sections via JavaScript */
+}
+
+.section-title {
+    color: var(--avengers-red); /* Avengers red for section titles */
+    font-family: 'NougatExtraBlack', sans-serif;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(var(--avengers-red), 0.5); /* Underline effect */
+    padding-bottom: 10px;
+}
+
+/* General Card Styles (used within sections) */
+.card {
+    background-color: var(--dark-input-background); /* Slightly lighter dark for inner cards */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+    transition: background-color 0.3s;
+}
+
+/* Light mode adjustments for inner cards */
+body.light-mode .card {
+    background-color: var(--light-input-background);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.card h3 {
+    color: var(--dark-text);
+    font-family: 'NougatExtraBlack', sans-serif;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--dark-border); /* Separator for card titles */
+    padding-bottom: 8px;
+}
+
+/* Light mode adjustments for card titles */
+body.light-mode .card h3 {
+    color: var(--light-text);
+    border-bottom: 1px solid var(--light-border);
+}
+
+/* Form Elements Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block; /* Each label on its own line */
+    margin-bottom: 5px;
+    color: var(--dark-text);
+    font-weight: bold;
+}
+
+/* Light mode adjustments for form labels */
+body.light-mode .form-group label {
+    color: var(--light-text);
+}
+
+.input-field,
+textarea.input-field,
+select.input-field {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px;
+    border: 1px solid var(--dark-border);
+    border-radius: 5px;
+    background-color: var(--dark-card-background); /* Dark background for inputs */
+    color: var(--dark-text);
+    font-size: 1em;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+/* Light mode adjustments for input fields */
+body.light-mode .input-field,
+body.light-mode textarea.input-field,
+body.light-mode select.input-field {
+    border: 1px solid var(--light-border);
+    background-color: var(--light-card-background);
+    color: var(--light-text);
+}
+
+.input-field:focus,
+textarea.input-field:focus,
+select.input-field:focus {
+    outline: none; /* Remove default outline */
+    border-color: var(--avengers-red); /* Red border on focus */
+    box-shadow: 0 0 0 3px rgba(var(--avengers-red), 0.3); /* Subtle glow on focus */
+}
+
+/* Button Styles */
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s; /* Smooth hover effects */
+    text-transform: uppercase; /* Uppercase text for buttons */
+    letter-spacing: 0.5px;
+}
+
+.primary-button {
+    background-color: var(--avengers-red); /* Primary action button color */
+    color: var(--avengers-white);
+    box-shadow: 0 4px 6px rgba(var(--avengers-red), 0.3); /* Shadow for lift */
+}
+
+.primary-button:hover {
+    background-color: var(--avengers-dark-red); /* Darker red on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    box-shadow: 0 6px 8px rgba(var(--avengers-red), 0.4); /* Enhanced shadow on hover */
+}
+
+.small-button {
+    padding: 6px 12px;
+    font-size: 0.9em;
+    margin-right: 5px;
+    background-color: rgba(var(--avengers-red), 0.8); /* Slightly transparent red */
+    color: var(--avengers-white);
+}
+
+.small-button:hover {
+    background-color: var(--avengers-red); /* Solid red on hover */
+}
+
+.danger-button {
+    background-color: #dc3545; /* Standard danger red */
+    color: var(--avengers-white);
+}
+
+.danger-button:hover {
+    background-color: #c82333; /* Darker danger red on hover */
+}
+
+/* Data Table Styles */
+.data-table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse borders between cells */
+    margin-top: 20px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--dark-border); /* Bottom border for rows */
+    color: var(--dark-text);
+}
+
+/* Light mode adjustments for table borders and text */
+body.light-mode .data-table th,
+body.light-mode .data-table td {
+    border-bottom: 1px solid var(--light-border);
+    color: var(--light-text);
+}
+
+.data-table th {
+    background-color: rgba(var(--avengers-red), 0.1); /* Light red background for headers */
+    color: var(--avengers-red);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.data-table tbody tr:hover {
+    background-color: rgba(var(--avengers-red), 0.05); /* Subtle red highlight on row hover */
+}
+
+/* Specific Section Component Styles */
+
+/* Stats Grid for Overview Section */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid columns */
+    gap: 20px; /* Space between stat cards */
+    margin-top: 20px;
+}
+
+.stat-card {
+    background-color: var(--dark-input-background);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--dark-border);
+}
+
+/* Light mode adjustments for stat cards */
+body.light-mode .stat-card {
+    background-color: var(--light-input-background);
+    border: 1px solid var(--light-border);
+}
+
+.stat-card h3 {
+    color: var(--avengers-red);
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    font-family: 'NougatExtraBlack', sans-serif;
+    border-bottom: none; /* Remove border from h3 in stat card */
+    padding-bottom: 0;
+}
+
+.stat-card p {
+    font-size: 2em; /* Large font for the numbers */
+    font-weight: bold;
+    color: var(--dark-text);
+}
+
+/* Light mode adjustments for stat card numbers */
+body.light-mode .stat-card p {
+    color: var(--light-text);
+}
+
+/* Advanced Payment Group (initially hidden) */
+.advanced-amount-group.hidden {
+    display: none;
+}
+
+/* Attendance Code Display */
+.attendance-code-display {
+    background-color: var(--dark-input-background);
+    border: 2px dashed var(--avengers-red); /* Dashed red border for emphasis */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--avengers-red);
+}
+
+/* Light mode adjustments for attendance code display */
+body.light-mode .attendance-code-display {
+    background-color: var(--light-input-background);
+}
+
+.attendance-code-display span {
+    font-family: 'Avengers', monospace; /* Use Avengers font for the code itself */
+    font-size: 1.5em;
+    letter-spacing: 3px; /* Spaced letters for readability */
+}
+
+/* Feedback and Announcement Item Styles */
+.feedback-item,
+.announcement-item {
+    background-color: var(--dark-input-background);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--dark-border);
+}
+
+/* Light mode adjustments for feedback/announcement items */
+body.light-mode .feedback-item,
+body.light-mode .announcement-item {
+    background-color: var(--light-input-background);
+    border: 1px solid var(--light-border);
+}
+
+.feedback-item h4,
+.announcement-item h4 {
+    color: var(--avengers-red);
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Pushes badge to the right */
+}
+
+.feedback-item p,
+.announcement-item p {
+    margin-bottom: 5px;
+    font-size: 0.95em;
+    color: var(--dark-text);
+}
+
+/* Light mode adjustments for feedback/announcement text */
+body.light-mode .feedback-item p,
+body.light-mode .announcement-item p {
+    color: var(--light-text);
+}
+
+/* Badge for "Important" Announcements */
+.badge {
+    background-color: var(--avengers-dark-red);
+    color: var(--avengers-white);
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge.important {
+    background-color: #ffc107; /* Yellow for important, stands out */
+    color: #333; /* Dark text on yellow */
+}
+
+/* Utility Classes */
+.mt-3 {
+    margin-top: 15px;
+}
+
+.mt-4 {
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none !important; /* Force hide element */
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto; /* Override input-field width */
+    margin: 0;
+    transform: scale(1.2); /* Make checkbox slightly larger */
+}
+
+/* --- Responsive Design for various screen sizes --- */
+
+/* For tablets and smaller desktops (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .content-wrapper {
+        flex-direction: column; /* Stack header, sidebar, and main content vertically */
+        margin: 0; /* Remove side margins */
+        border-radius: 0; /* Remove rounded corners for full width */
+        max-width: 100%; /* Take full width */
+        min-height: 100vh; /* Ensure it takes full viewport height */
+    }
+
+    .dashboard-layout-container {
+        flex-direction: column; /* Stack sidebar and main content vertically */
+    }
+
+    .sidebar {
+        width: 100%; /* Sidebar takes full width */
+        border-right: none; /* Remove right border */
+        border-bottom: 1px solid var(--dark-border); /* Add bottom border */
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* Shadow at the bottom */
+        min-height: auto; /* Allow sidebar to collapse its height */
+        height: auto;
+        padding-bottom: 0;
+    }
+
+    .sidebar ul {
+        display: flex; /* Use flexbox for horizontal layout of nav items */
+        flex-wrap: wrap; /* Allow items to wrap to next line */
+        justify-content: center; /* Center items horizontally */
+        padding: 10px 0;
+    }
+
+    .sidebar li {
+        padding: 10px 15px; /* Adjust padding for smaller screens */
+        font-size: 1em;
+        flex-basis: auto; /* Allow items to size based on content */
+        text-align: center;
+        border-left: none; /* Remove left border from active item */
+        border-bottom: 3px solid transparent; /* Add a bottom border for active state */
+    }
+
+    .sidebar li.active {
+        border-left: none; /* Remove left border */
+        border-bottom: 3px solid var(--avengers-dark-red); /* Move active indicator to bottom */
+    }
+
+    .dashboard-main-content {
+        padding: 20px; /* Reduce padding for main content */
+    }
+
+    .dashboard-header {
+        padding: 15px 20px;
+    }
+
+    .dashboard-title {
+        font-size: 2em; /* Adjust title size */
+    }
+
+    .welcome-message {
+        font-size: 1em;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr; /* Stack stat cards vertically on smaller screens */
+    }
+}
+
+/* For mobile devices (max-width: 768px) */
+@media (max-width: 768px) {
+    .theme-switch-wrapper {
+        top: 10px;
+        right: 10px;
+        padding: 5px 8px;
+    }
+
+    .dashboard-title {
+        font-size: 1.8em;
+    }
+
+    .welcome-message {
+        font-size: 0.9em;
+    }
+
+    .sidebar li {
+        font-size: 0.9em;
+        padding: 8px 10px;
+    }
+
+    .sidebar i {
+        font-size: 1em;
+    }
+
+    .dashboard-main-content {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .card h3 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+
+    .input-field,
+    textarea.input-field,
+    select.input-field {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+
+    .attendance-code-display {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .attendance-code-display span {
+        font-size: 1.2em;
+    }
+
+    .feedback-item,
+    .announcement-item {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .feedback-item h4,
+    .announcement-item h4 {
+        font-size: 1em;
+    }
+
+    .feedback-item p,
+    .announcement-item p {
+        font-size: 0.85em;
+    }
+}
